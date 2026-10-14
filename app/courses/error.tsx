@@ -4,25 +4,29 @@ import { useEffect } from "react";
 
 export default function Error({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
+  retry: () => void;
 }) {
   useEffect(() => {
-    console.error("Course error boundary caught:", error);
+    console.error(error);
   }, [error]);
 
   return (
-    <div className="p-4 border border-red-300 bg-red-50 rounded mt-4">
-      <h2 className="text-xl font-bold text-red-600 mb-2">Something went wrong!</h2>
-      <p className="mb-4 text-gray-700">{error.message || "Failed to load the course data."}</p>
+    <main className="p-6 border border-red-200 bg-red-50 dark:bg-red-950/20 rounded-md">
+      <h1 className="mb-2 text-2xl font-bold text-red-600 dark:text-red-400">
+        Something went wrong
+      </h1>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        Could not load the data. The backend may not be running.
+      </p>
       <button
-        onClick={() => reset()}
-        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        onClick={() => retry()}
+        className="rounded-md border border-slate-300 bg-white dark:bg-slate-900 px-3 py-1 hover:bg-slate-50 dark:hover:bg-slate-800 transition"
       >
         Try again
       </button>
-    </div>
+    </main>
   );
 }
